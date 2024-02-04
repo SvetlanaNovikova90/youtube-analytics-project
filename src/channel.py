@@ -14,6 +14,30 @@ class Channel:
         self.__channel_id = channel_id
         self.all_otr = []
 
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __lt__(self, other):
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other):
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        return int(self.subscriber_count) == int(other.subscriber_count)
+
     @classmethod
     def get_service(cls):
         '''класс-метод, возвращающий объект для работы с YouTube API'''
@@ -41,8 +65,8 @@ class Channel:
         channel_otrib.append(url_count)
         channel_description: str = channel_response['items'][0]['snippet']['description']
         channel_otrib.append(channel_description)
-        subscriber_Count: str = channel_response['items'][0]['statistics']['subscriberCount']
-        channel_otrib.append(subscriber_Count)
+        subscriber_count: str = channel_response['items'][0]['statistics']['subscriberCount']
+        channel_otrib.append(subscriber_count)
         view_Count: str = channel_response['items'][0]['statistics']['viewCount']
         channel_otrib.append(view_Count)
 
@@ -58,6 +82,10 @@ class Channel:
     @property
     def url(self):
         return self.response()[2]
+
+    @property
+    def subscriber_count(self):
+        return self.response()[5]
 
     def print_info(self, ) -> None:
         """Выводит в консоль информацию о канале."""
