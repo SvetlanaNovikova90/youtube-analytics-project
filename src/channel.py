@@ -85,7 +85,7 @@ class Channel:
 
     @property
     def subscriber_count(self):
-        return self.response()[5]
+        return self.response()[4]
 
     def print_info(self, ) -> None:
         """Выводит в консоль информацию о канале."""
