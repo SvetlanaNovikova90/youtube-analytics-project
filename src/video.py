@@ -9,12 +9,13 @@ class Video:
     # Специальный объект для работы с API
     youtube = build('youtube', 'v3', developerKey=api_key)
 
-    def __init__(self, video_id: str):
+    def __init__(self, video_id):
         self.video_id = video_id
-        self.video_title: str = self.video_response()['items'][0]['snippet']['title']
-        self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
-        self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
-        self.comment_count: int = self.video_response()['items'][0]['statistics']['commentCount']
+        video_info = self.video_response()
+        self.video_title: str = video_info['items'][0]['snippet']['title']
+        self.view_count: int = video_info['items'][0]['statistics']['viewCount']
+        self.like_count: int = video_info['items'][0]['statistics']['likeCount']
+        self.comment_count: int = video_info['items'][0]['statistics']['commentCount']
 
     def video_response(self) -> dict:
         '''проверяет информацию в славаре, если нет, возвращает информацию о видеоролике.'''
