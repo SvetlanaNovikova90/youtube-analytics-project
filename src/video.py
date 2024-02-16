@@ -10,12 +10,18 @@ class Video:
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, video_id):
-        self.video_id = video_id
-        video_info = self.video_response()
-        self.video_title: str = video_info['items'][0]['snippet']['title']
-        self.view_count: int = video_info['items'][0]['statistics']['viewCount']
-        self.like_count: int = video_info['items'][0]['statistics']['likeCount']
-        self.comment_count: int = video_info['items'][0]['statistics']['commentCount']
+        try:
+            self.video_id = video_id
+            video_info = self.video_response()
+            self.video_title: str = video_info['items'][0]['snippet']['title']
+            self.view_count: int = video_info['items'][0]['statistics']['viewCount']
+            self.like_count: int = video_info['items'][0]['statistics']['likeCount']
+            self.comment_count: int = video_info['items'][0]['statistics']['commentCount']
+        except:
+            self.title = None
+            self.like_count = None
+            self.view_count = None
+            self.comment_count = None
 
     def video_response(self) -> dict:
         '''проверяет информацию в славаре, если нет, возвращает информацию о видеоролике.'''
