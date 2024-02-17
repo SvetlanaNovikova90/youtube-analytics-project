@@ -13,11 +13,12 @@ class Video:
         try:
             self.video_id = video_id
             video_info = self.video_response()
-            self.video_title: str = video_info['items'][0]['snippet']['title']
+
+            self.title: str = video_info['items'][0]['snippet']['title']
             self.view_count: int = video_info['items'][0]['statistics']['viewCount']
             self.like_count: int = video_info['items'][0]['statistics']['likeCount']
             self.comment_count: int = video_info['items'][0]['statistics']['commentCount']
-        except:
+        except IndexError:
             self.title = None
             self.like_count = None
             self.view_count = None
